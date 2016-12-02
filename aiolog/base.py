@@ -1,6 +1,8 @@
 import asyncio
 import logging
 
+from async_timeout import timeout
+
 from . import HANDLERS
 
 
@@ -10,10 +12,12 @@ CLOSE_SIGNAL = object()
 class Handler(logging.Handler):
     def __init__(self,
                  queue_size=1000,
+                 timeout=60,
                  level=logging.NOTSET):
         super().__init__(level=level)
         self.queue = None
         self.queue_size = queue_size
+        self.timeout = timeout
         HANDLERS.append(self)
 
     def emit(self, record):
@@ -38,7 +42,8 @@ class Handler(logging.Handler):
             if entry is CLOSE_SIGNAL:
                 break
             entries = [entry] + list(self.get_all_entries())
-            await self.store(entries)
+            with timeout(self.timeout):
+                await self.store(entries)
 
     def get_all_entries(self):
         for i in range(self.queue.qsize()):
