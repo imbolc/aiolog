@@ -1,6 +1,8 @@
+'''Asynchronous handlers for standard python logging library'''
 import asyncio
 
 
+__version__ = '0.0.1'
 HANDLERS = []
 
 
@@ -11,7 +13,7 @@ def start(loop=None):
 
 
 async def stop(*agrs):
-    asyncio.gather(*[h.stop() for h in HANDLERS])
+    await asyncio.gather(*[h.stop() for h in HANDLERS])
 
 
 def setup_aiohttp(app):
