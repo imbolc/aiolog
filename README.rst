@@ -1,10 +1,8 @@
 aiolog
 ======
 Asynchronous handlers for standard python logging library.
-Currently telegram and smtp handlers are available.
-
-
-Look at the `example` folder for more examples.
+Currently telegram (requires ``aiohttp``)
+and smtp (via ``aiosmtplib``) handlers are available.
 
 
 Installation
@@ -18,7 +16,7 @@ Repository: https://github.com/imbolc/aiolog
 
 Configuration
 -------------
-Just use any way you prefer to configure built-in `logging` library, e.g.:
+Just use any way you prefer to configure built-in ``logging`` library, e.g.:
 
 .. code-block:: python
 
@@ -61,10 +59,11 @@ Just use any way you prefer to configure built-in `logging` library, e.g.:
         }
     })
 
+
 Usage
 -----
-You can use built-in `logging` library as usual,
-just add starting and stopping of `aiolog`.
+You can use built-in ``logging`` library as usual,
+just add starting and stopping of ``aiolog``.
 
 .. code-block:: python
 
@@ -79,13 +78,14 @@ just add starting and stopping of `aiolog`.
     loop.run_until_complete(aiolog.stop())
 
 
+Look at the ``example`` folder for more examples.
+
+
 aiohttp
 ^^^^^^^
-With `aiohttp`, you can use a little more sugar.
-Instead of starting and stopping `aiolog` directly just use:
+With ``aiohttp``, you can use a little more sugar.
+Instead of starting and stopping ``aiolog`` directly, you can use:
 
 .. code-block:: python
 
     aiolog.setup_aiohttp(app)
-
-You can see more examples in the `examples` folder.
