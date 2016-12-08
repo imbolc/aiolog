@@ -18,4 +18,5 @@ class Handler(base.Handler):
                 'disable_notification': self.disable_notification,
                 'disable_web_page_preview': True,
             }
-            await session.post(self.url, data=data)
+            async with session.post(self.url, data=data):
+                pass
