@@ -72,8 +72,8 @@ just add starting and stopping of ``aiolog``.
     async def hello():
         log.debug('Hey')
 
+    aiolog.start()
     loop = asyncio.get_event_loop()
-    aiolog.start(loop=loop)
     loop.run_until_complete(hello())
     loop.run_until_complete(aiolog.stop())
 

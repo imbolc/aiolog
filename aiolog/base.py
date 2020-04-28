@@ -27,19 +27,18 @@ class Handler(logging.Handler):
             entry = self.format(record)
             self.queue.put_nowait(entry)
 
-    def start(self, loop):
-        self.loop = loop
-        self.queue = asyncio.Queue(maxsize=self.queue_size, loop=loop)
-        self.task = asyncio.ensure_future(self.new_entry(), loop=loop)
+    def start(self):
+        self.queue = asyncio.Queue(maxsize=self.queue_size)
+        self.task = asyncio.ensure_future(self.new_entry())
         self.started = True
 
     async def stop(self, timeout=60):
         with suppress(asyncio.TimeoutError):
-            with timeout_manager(timeout, loop=self.loop):
+            with timeout_manager(timeout):
                 await self.queue.put(STOP_SIGNAL)
                 await self.queue.join()
                 while self.started:
-                    await asyncio.sleep(0.1, loop=self.loop)
+                    await asyncio.sleep(0.1)
         self.task.cancel()
 
     async def new_entry(self):
@@ -53,7 +52,7 @@ class Handler(logging.Handler):
                 time_to_stop = True
             if entries:
                 with suppress(asyncio.TimeoutError):
-                    with timeout_manager(self.timeout, loop=self.loop):
+                    with timeout_manager(self.timeout):
                         await self.store(entries)
         self.started = False
 

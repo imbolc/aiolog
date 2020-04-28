@@ -2,14 +2,13 @@
 import asyncio
 
 
-__version__ = '0.0.2'
+__version__ = '0.1.0'
 HANDLERS = []
 
 
-def start(loop=None):
-    loop = loop or asyncio.get_event_loop()
+def start():
     for handler in HANDLERS:
-        handler.start(loop)
+        handler.start()
 
 
 async def stop(*agrs):
@@ -17,5 +16,5 @@ async def stop(*agrs):
 
 
 def setup_aiohttp(app):
-    start(app.loop)
+    start()
     app.on_shutdown.append(stop)

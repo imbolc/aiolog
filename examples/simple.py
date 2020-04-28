@@ -14,7 +14,7 @@ async def hello():
         log.exception('Error occurred')
 
 
-loop = asyncio.get_event_loop()
 aiolog.start()
+loop = asyncio.get_event_loop()
 loop.run_until_complete(hello())
 loop.run_until_complete(aiolog.stop())

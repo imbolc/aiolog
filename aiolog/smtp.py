@@ -24,7 +24,6 @@ class Handler(base.Handler):
 
     async def store(self, entries):
         async with aiosmtplib.SMTP(
-            loop=self.loop,
             hostname=self.hostname,
             port=self.port,
             use_tls=self.use_tls,

@@ -10,7 +10,7 @@ class Handler(base.Handler):
         self.url = 'https://api.telegram.org/bot{}/sendMessage'.format(token)
 
     async def store(self, entries):
-        async with aiohttp.ClientSession(loop=self.loop) as session:
+        async with aiohttp.ClientSession() as session:
             data = {
                 'chat_id': self.chat_id,
                 'text': '```\n{}\n```'.format('\n'.join(entries)),
