@@ -6,15 +6,11 @@ from async_timeout import timeout as timeout_manager
 
 from . import HANDLERS
 
-
 STOP_SIGNAL = object()
 
 
 class Handler(logging.Handler):
-    def __init__(self,
-                 queue_size=1000,
-                 timeout=60,
-                 level=logging.NOTSET):
+    def __init__(self, queue_size=1000, timeout=60, level=logging.NOTSET):
         super().__init__(level=level)
         self.queue = None
         self.queue_size = queue_size

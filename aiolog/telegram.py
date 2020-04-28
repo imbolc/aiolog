@@ -1,5 +1,6 @@
-from . import base
 import aiohttp
+
+from . import base
 
 
 class Handler(base.Handler):
@@ -7,16 +8,16 @@ class Handler(base.Handler):
         super().__init__(**kwargs)
         self.chat_id = chat_id
         self.disable_notification = disable_notification
-        self.url = 'https://api.telegram.org/bot{}/sendMessage'.format(token)
+        self.url = "https://api.telegram.org/bot{}/sendMessage".format(token)
 
     async def store(self, entries):
         async with aiohttp.ClientSession() as session:
             data = {
-                'chat_id': self.chat_id,
-                'text': '```\n{}\n```'.format('\n'.join(entries)),
-                'parse_mode': 'markdown',
-                'disable_notification': self.disable_notification,
-                'disable_web_page_preview': True,
+                "chat_id": self.chat_id,
+                "text": "```\n{}\n```".format("\n".join(entries)),
+                "parse_mode": "markdown",
+                "disable_notification": self.disable_notification,
+                "disable_web_page_preview": True,
             }
             async with session.post(self.url, data=data):
                 pass
