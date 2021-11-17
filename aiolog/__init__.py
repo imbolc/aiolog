@@ -14,6 +14,7 @@ async def stop(*agrs):
     await asyncio.gather(*[h.stop() for h in HANDLERS])
 
 
-def setup_aiohttp(app):
+def setup_aiohttp(app, *, graceful_shutdown: bool = True):
     start()
-    app.on_shutdown.append(stop)
+    if graceful_shutdown:
+        app.on_shutdown.append(stop)
