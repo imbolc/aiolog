@@ -13,8 +13,8 @@ def read(filename):
 
 
 if sys.argv[-1] == "publish":
-    os.system("python setup.py bdist_wheel")
-    os.system("python -m twine upload dist/*")
+    os.system("python3 setup.py bdist_wheel")
+    os.system("python3 -m twine upload dist/*")
     os.system("git push")
     os.system("git push --tags")
     sys.exit(0)
